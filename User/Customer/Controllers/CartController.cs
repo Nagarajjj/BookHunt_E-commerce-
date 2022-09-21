@@ -30,9 +30,9 @@ namespace Customer.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GoToBill()
+        public ActionResult Cart()
         {
-            var currentUser = Session["CurrentUser"] as CustomerTable;
+            var currentUser = Session["user"] as CustomerTable;
             var com = new CartComponent();
             com.Customer = currentUser;
             com.GenerateBill();
