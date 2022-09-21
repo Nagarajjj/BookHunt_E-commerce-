@@ -1,0 +1,42 @@
+﻿@model Customer.ViewModels.LoginView
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CustomerLogin</title>
+</head>
+<body>
+    <div>
+        <h1 style="text-align:center">Please login here!!!!</h1>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            <div style="color:red">
+                @Html.ValidationSummary()
+            </div>
+            <div style="text-align:center">
+                <p>
+                    Enter the Login Email Address:<br />
+                    @Html.EditorFor((m) => m.CustomerEmailId)
+                </p>
+                <p style="color:red; text-align:center">
+                    @Html.ValidationMessageFor((m) => m.CustomerEmailId)
+                </p>
+            </div>
+            <div style="text-align:center">
+                <p>
+                    Enter the Password:<br />
+                    @Html.EditorFor((m) => m.CustomerPassword)
+                </p>
+                <p style="color:red">
+                    @Html.ValidationMessageFor((m) => m.CustomerPassword)
+                </p>
+            </div>
+            <p style="text-align:center"><button>Login</button></p>
+            <p style="text-align:center"><button>@Html.ActionLink("New Customer", "RegisterNewCustomer", "Account")</button></p>
+            }
+        </div>
+</body>
+</html>

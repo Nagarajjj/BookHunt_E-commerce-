@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/StyleSheet/Master.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header id="header" style="height:70pt">
+        <div style="display:inline-block; height:30pt">
+            <i><img style="width:80px;display:inline;vertical-align:bottom" src="~/StyleSheet/logo.png"></i>
+        </div>
+        <div style="display: inline-block; vertical-align:top; padding-left: 3%;padding-bottom:-10%">
+            <h1> Book Hunt </h1>
+        </div>
+        @*<h1 style="display:inline"><i><img style="width:100px;height:100px;display:inline;" src="~/StyleSheet/logo.png" > Book Hunt</i></h1>*@
+       
+       
+    </header>
+
+    
+    <nav id="nav">
+        @*<div class="search-container">
+            <form action="" style="padding-right:80%"; padd >
+                <input type="text" placeholder="Search..." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>*@
+        <ul>
+            <li style="text-align:left;padding-right:2%">
+                <input type="text" placeholder="Search..." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </li>
+            @if (Request.Url.ToString() == "~/Account/Index.cshtml")
+            {
+                <li style="padding-right:2%">@Html.ActionLink("Home", "Index", "Account")</li>
+            }
+            @if (!Request.IsAuthenticated)
+            {
+                <li style="padding-right:2%">@Html.ActionLink("Sign In/Sign Up", "VendorCustomer", "Account")</li>
+            }
+            @*@Html.ActionLink("New User? SignUp!", "RegisterNewCustomer")*@
+            <li style="padding-right:2%">@Html.ActionLink("Cart", "OnAddToCart", "Cart")</li>
+            @if (Request.IsAuthenticated)
+            {
+                <li style="padding-right:2%">@Html.ActionLink("Logout", "CustomerLogout", "Account")</li>
+            }
+        </ul>
+    </nav>
+    @*<div id="con">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
+        </asp:ContentPlaceHolder>
+
+    </div>*@
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer id="footer">
+        <p>&copy;CopyRight BookHunt-@DateTime.Now.Year</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookHuntModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BookTable">
+    <Key>
+      <PropertyRef Name="BookId" />
+    </Key>
+    <Property Name="BookId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookTitle" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BookAuthor" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BookPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="BookStock" Type="smallint" Nullable="false" />
+    <Property Name="BookPublicationYear" Type="smallint" Nullable="false" />
+    <Property Name="BookImage" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="VendorId" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerTable">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerEmailId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerPassword" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CustomerPhNo" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="ODId" />
+    </Key>
+    <Property Name="ODId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderId" Type="smallint" Nullable="false" />
+    <Property Name="BookId" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderTable">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" Nullable="false" />
+    <Property Name="OrderAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="NoOfItems" Type="smallint" Nullable="false" />
+    <Property Name="CustomerId" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VendorTable">
+    <Key>
+      <PropertyRef Name="VendorId" />
+    </Key>
+    <Property Name="VendorId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VendorName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VendorEmailId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VendorPassword" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="VendorPhNo" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__OrderDeta__BookI__68487DD7">
+    <End Role="BookTable" Type="Self.BookTable" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookTable">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Order__6383C8BA">
+    <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderTable">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderTabl__Custo__60A75C0F">
+    <End Role="CustomerTable" Type="Self.CustomerTable" Multiplicity="1" />
+    <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerTable">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="OrderTable">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookTable_VendorTable">
+    <End Role="VendorTable" Type="Self.VendorTable" Multiplicity="1" />
+    <End Role="BookTable" Type="Self.BookTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VendorTable">
+        <PropertyRef Name="VendorId" />
+      </Principal>
+      <Dependent Role="BookTable">
+        <PropertyRef Name="VendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BookHuntModelStoreContainer">
+    <EntitySet Name="BookTable" EntityType="Self.BookTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerTable" EntityType="Self.CustomerTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderTable" EntityType="Self.OrderTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VendorTable" EntityType="Self.VendorTable" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__OrderDeta__BookI__68487DD7" Association="Self.FK__OrderDeta__BookI__68487DD7">
+      <End Role="BookTable" EntitySet="BookTable" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Order__6383C8BA" Association="Self.FK__OrderDeta__Order__6383C8BA">
+      <End Role="OrderTable" EntitySet="OrderTable" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderTabl__Custo__60A75C0F" Association="Self.FK__OrderTabl__Custo__60A75C0F">
+      <End Role="CustomerTable" EntitySet="CustomerTable" />
+      <End Role="OrderTable" EntitySet="OrderTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookTable_VendorTable" Association="Self.FK_BookTable_VendorTable">
+      <End Role="VendorTable" EntitySet="VendorTable" />
+      <End Role="BookTable" EntitySet="BookTable" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
