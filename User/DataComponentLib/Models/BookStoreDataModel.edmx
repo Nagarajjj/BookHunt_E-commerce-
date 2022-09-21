@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BookHuntModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookTable">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookTitle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BookAuthor" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BookPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BookStock" Type="smallint" Nullable="false" />
+          <Property Name="BookPublicationYear" Type="smallint" Nullable="false" />
+          <Property Name="BookImage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="VendorId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerTable">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerEmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CustomerPhNo" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ODId" />
+          </Key>
+          <Property Name="ODId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="smallint" Nullable="false" />
+          <Property Name="BookId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderTable">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="OrderAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="NoOfItems" Type="smallint" Nullable="false" />
+          <Property Name="CustomerId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VendorTable">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VendorEmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VendorPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="VendorPhNo" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__OrderDeta__BookI__68487DD7">
+          <End Role="BookTable" Type="Self.BookTable" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookTable">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Order__6383C8BA">
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTable">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderTabl__Custo__60A75C0F">
+          <End Role="CustomerTable" Type="Self.CustomerTable" Multiplicity="1" />
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTable">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="OrderTable">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookTable_VendorTable">
+          <End Role="VendorTable" Type="Self.VendorTable" Multiplicity="1" />
+          <End Role="BookTable" Type="Self.BookTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VendorTable">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="BookTable">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookHuntModelStoreContainer">
+          <EntitySet Name="BookTable" EntityType="Self.BookTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerTable" EntityType="Self.CustomerTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderTable" EntityType="Self.OrderTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VendorTable" EntityType="Self.VendorTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__OrderDeta__BookI__68487DD7" Association="Self.FK__OrderDeta__BookI__68487DD7">
+            <End Role="BookTable" EntitySet="BookTable" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Order__6383C8BA" Association="Self.FK__OrderDeta__Order__6383C8BA">
+            <End Role="OrderTable" EntitySet="OrderTable" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderTabl__Custo__60A75C0F" Association="Self.FK__OrderTabl__Custo__60A75C0F">
+            <End Role="CustomerTable" EntitySet="CustomerTable" />
+            <End Role="OrderTable" EntitySet="OrderTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookTable_VendorTable" Association="Self.FK_BookTable_VendorTable">
+            <End Role="VendorTable" EntitySet="VendorTable" />
+            <End Role="BookTable" EntitySet="BookTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookHuntModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookTable">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BookAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BookPrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BookStock" Type="Int16" Nullable="false" />
+          <Property Name="BookPublicationYear" Type="Int16" Nullable="false" />
+          <Property Name="BookImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VendorId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__BookI__68487DD7" FromRole="BookTable" ToRole="OrderDetail" />
+          <NavigationProperty Name="VendorTable" Relationship="Self.FK_BookTable_VendorTable" FromRole="BookTable" ToRole="VendorTable" />
+        </EntityType>
+        <EntityType Name="CustomerTable">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerPhNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="OrderTables" Relationship="Self.FK__OrderTabl__Custo__60A75C0F" FromRole="CustomerTable" ToRole="OrderTable" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ODId" />
+          </Key>
+          <Property Name="ODId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int16" Nullable="false" />
+          <Property Name="BookId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="BookTable" Relationship="Self.FK__OrderDeta__BookI__68487DD7" FromRole="OrderDetail" ToRole="BookTable" />
+          <NavigationProperty Name="OrderTable" Relationship="Self.FK__OrderDeta__Order__6383C8BA" FromRole="OrderDetail" ToRole="OrderTable" />
+        </EntityType>
+        <EntityType Name="OrderTable">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrderAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="NoOfItems" Type="Int16" Nullable="false" />
+          <Property Name="CustomerId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="CustomerTable" Relationship="Self.FK__OrderTabl__Custo__60A75C0F" FromRole="OrderTable" ToRole="CustomerTable" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Order__6383C8BA" FromRole="OrderTable" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="VendorTable">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VendorEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VendorPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VendorPhNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BookTables" Relationship="Self.FK_BookTable_VendorTable" FromRole="VendorTable" ToRole="BookTable" />
+        </EntityType>
+        <Association Name="FK__OrderDeta__BookI__68487DD7">
+          <End Role="BookTable" Type="Self.BookTable" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookTable">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookTable_VendorTable">
+          <End Role="VendorTable" Type="Self.VendorTable" Multiplicity="1" />
+          <End Role="BookTable" Type="Self.BookTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VendorTable">
+              <PropertyRef Name="VendorId" />
+            </Principal>
+            <Dependent Role="BookTable">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderTabl__Custo__60A75C0F">
+          <End Role="CustomerTable" Type="Self.CustomerTable" Multiplicity="1" />
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTable">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="OrderTable">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Order__6383C8BA">
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTable">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BookHuntEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookTables" EntityType="Self.BookTable" />
+          <EntitySet Name="CustomerTables" EntityType="Self.CustomerTable" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="OrderTables" EntityType="Self.OrderTable" />
+          <EntitySet Name="VendorTables" EntityType="Self.VendorTable" />
+          <AssociationSet Name="FK__OrderDeta__BookI__68487DD7" Association="Self.FK__OrderDeta__BookI__68487DD7">
+            <End Role="BookTable" EntitySet="BookTables" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookTable_VendorTable" Association="Self.FK_BookTable_VendorTable">
+            <End Role="VendorTable" EntitySet="VendorTables" />
+            <End Role="BookTable" EntitySet="BookTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderTabl__Custo__60A75C0F" Association="Self.FK__OrderTabl__Custo__60A75C0F">
+            <End Role="CustomerTable" EntitySet="CustomerTables" />
+            <End Role="OrderTable" EntitySet="OrderTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Order__6383C8BA" Association="Self.FK__OrderDeta__Order__6383C8BA">
+            <End Role="OrderTable" EntitySet="OrderTables" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BookHuntModelStoreContainer" CdmEntityContainer="BookHuntEntities">
+          <EntitySetMapping Name="BookTables">
+            <EntityTypeMapping TypeName="BookHuntModel.BookTable">
+              <MappingFragment StoreEntitySet="BookTable">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+                <ScalarProperty Name="BookAuthor" ColumnName="BookAuthor" />
+                <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
+                <ScalarProperty Name="BookStock" ColumnName="BookStock" />
+                <ScalarProperty Name="BookPublicationYear" ColumnName="BookPublicationYear" />
+                <ScalarProperty Name="BookImage" ColumnName="BookImage" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTables">
+            <EntityTypeMapping TypeName="BookHuntModel.CustomerTable">
+              <MappingFragment StoreEntitySet="CustomerTable">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerEmailId" ColumnName="CustomerEmailId" />
+                <ScalarProperty Name="CustomerPassword" ColumnName="CustomerPassword" />
+                <ScalarProperty Name="CustomerPhNo" ColumnName="CustomerPhNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="BookHuntModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="ODId" ColumnName="ODId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderTables">
+            <EntityTypeMapping TypeName="BookHuntModel.OrderTable">
+              <MappingFragment StoreEntitySet="OrderTable">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderAmount" ColumnName="OrderAmount" />
+                <ScalarProperty Name="NoOfItems" ColumnName="NoOfItems" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendorTables">
+            <EntityTypeMapping TypeName="BookHuntModel.VendorTable">
+              <MappingFragment StoreEntitySet="VendorTable">
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VendorEmailId" ColumnName="VendorEmailId" />
+                <ScalarProperty Name="VendorPassword" ColumnName="VendorPassword" />
+                <ScalarProperty Name="VendorPhNo" ColumnName="VendorPhNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

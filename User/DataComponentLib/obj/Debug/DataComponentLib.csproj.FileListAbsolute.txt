@@ -1,0 +1,12 @@
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\obj\Debug\DataComponentLib.csproj.AssemblyReference.cache
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\obj\Debug\DataComponentLib.csproj.CoreCompileInputs.cache
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\bin\Debug\DataComponentLib.dll.config
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\bin\Debug\DataComponentLib.dll
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\bin\Debug\DataComponentLib.pdb
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\bin\Debug\EntityFramework.dll
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\bin\Debug\EntityFramework.xml
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\obj\Debug\DataComponentLib.csproj.CopyComplete
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\obj\Debug\DataComponentLib.dll
+C:\Users\nravindrakoli\source\repos\BookStore\DataComponentLib\obj\Debug\DataComponentLib.pdb
